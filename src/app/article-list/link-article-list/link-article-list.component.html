@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="col-xs-12">
+    <app-link-article-item
+      *ngFor="let linkArticle of articles; let i = index"
+      [linkArticle]="linkArticle"
+      [index]=i
+    ></app-link-article-item>
+  </div>
+</div>

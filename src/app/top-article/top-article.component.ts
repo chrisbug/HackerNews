@@ -15,8 +15,8 @@ import { Subscription } from 'rxjs/Subscription';
 export class TopArticleComponent implements OnInit, OnDestroy {
   linkArticles : LinkArticle[];
   hnArticles : HnArticle[];
-  hnMostLikedArticle: HnArticle = new HnArticle('name','des','art','img',0);
-  linkMostLikedArticle: LinkArticle = new LinkArticle('title','des','link',0);
+  hnMostLikedArticle: HnArticle = new HnArticle('name','des','art','img',-11);
+  linkMostLikedArticle: LinkArticle = new LinkArticle('title','des','link',-11);
   hnid: number;
   linkid: number;
   subscriptionhn: Subscription;

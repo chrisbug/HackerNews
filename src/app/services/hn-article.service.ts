@@ -7,6 +7,7 @@ export class HnArticleService {
   hnArticlesChanged = new Subject<HnArticle[]>();
   private hnArticles: HnArticle[] = [
     new HnArticle(
+      '0',
       "My Awesome Article",
       "This Awesome article is tell you about all the awesome things that are Awesome",
       `In The year 1900 the awesome bird did awesome things that were awesome and ye
@@ -18,6 +19,7 @@ export class HnArticleService {
     ),
 
     new HnArticle(
+      '1',
       "My Awesome Article 2",
       "This Awesome article is tell you about all the awesome things that are Awesome",
       `Did you know that Angular 4 is now just called Angular cause 3 is bad luck in china
@@ -25,7 +27,7 @@ export class HnArticleService {
       and 2 is still 2 but really it was just deperacted.
       `,
       "http://www.angularconnect.com/workspace/2015/img/resources/angular.png",
-      5
+      2
     )
   ]
   sethnArticles(hnArticles: HnArticle[]){

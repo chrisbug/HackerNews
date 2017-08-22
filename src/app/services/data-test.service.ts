@@ -12,7 +12,7 @@ constructor(private http: Http, private hnArticleService: HnArticleService){
 }
 
 getHnArticles(){
-  this.http.get('http://localhost:3000/articles').map(
+  this.http.get('http://localhost:3000/api/v1/hnarticles').map(
     (response: Response) => {
       const articles: HnArticle[] = response.json();
       return articles;

@@ -15,7 +15,8 @@ export class HnArticleListComponent implements OnInit, OnDestroy {
   hnArticles: HnArticle[];
   subscription: Subscription;
 
-  constructor(private hnArticleService: HnArticleService, private dataTestService: DataTestService) { }
+  constructor(private hnArticleService: HnArticleService, private dataTestService: DataTestService,
+              private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.onGetData();
@@ -33,6 +34,10 @@ export class HnArticleListComponent implements OnInit, OnDestroy {
 
   onGetData(){
     this.dataTestService.getHnArticles();
+  }
+
+  onAddArticle(){
+    this.router.navigate(['add'], {relativeTo: this.route});
   }
 
 }

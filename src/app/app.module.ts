@@ -16,6 +16,9 @@ import { HnArticleService } from './services/hn-article.service';
 import { HnArticleDetailComponent } from './article-list/hn-article-list/hn-article-detail/hn-article-detail.component';
 import { TopArticleComponent } from './top-article/top-article.component';
 import { DataTestService } from './services/data-test.service';
+import { NewHnArticleComponent } from './article-list/hn-article-list/new-hn-article/new-hn-article.component';
+import { SendDataService } from './services/send-data.service';
+import { NewLinkArticleComponent } from './article-list/link-article-list/new-link-article/new-link-article.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,9 @@ import { DataTestService } from './services/data-test.service';
     LinkArticleItemComponent,
     HnArticleListItemComponent,
     HnArticleDetailComponent,
-    TopArticleComponent
+    TopArticleComponent,
+    NewHnArticleComponent,
+    NewLinkArticleComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +40,7 @@ import { DataTestService } from './services/data-test.service';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [LinkArticleService, HnArticleService, DataTestService],
+  providers: [LinkArticleService, HnArticleService, DataTestService, SendDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

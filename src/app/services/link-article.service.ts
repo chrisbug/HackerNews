@@ -6,6 +6,7 @@ export class LinkArticleService {
    private linkArticles: LinkArticle[] = [
 
      new LinkArticle(
+       '0',
        'Sample article One',
        'This is just a test article for testing of the test',
        'http://thehackernews.com/2017/08/two-critical-zero-day-flaws-disclosed.html',
@@ -13,6 +14,7 @@ export class LinkArticleService {
      ),
 
      new LinkArticle(
+       '0',
        'Sample article two',
        'this is just the second article cause I do some array stuff',
        'http://thehackernews.com/2017/08/car-safety-hacking.html',

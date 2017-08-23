@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LinkArticle } from '../../models/linkArticle.model';
 import { LinkArticleService } from '../../services/link-article.service';
+import { DataTestService } from '../../services/data-test.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -14,10 +15,12 @@ export class LinkArticleListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(private linkArticleService: LinkArticleService,
+              private dataTestService: DataTestService,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.onGetData();
     this.subscription = this.linkArticleService.linkArticlesChanged.subscribe(
       (linkArticles: LinkArticle[]) => {
         this.articles = linkArticles;
@@ -28,6 +31,14 @@ export class LinkArticleListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.subscription.unsubscribe(); //Stops possible memory links from the observable
+  }
+
+  onGetData(){
+    this.dataTestService.getLinkArticles();
+  }
+
+  onAddArticle(){
+    this.router.navigate(['add'], {relativeTo: this.route});
   }
 
 }

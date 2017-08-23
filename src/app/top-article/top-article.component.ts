@@ -16,7 +16,7 @@ export class TopArticleComponent implements OnInit, OnDestroy {
   linkArticles : LinkArticle[];
   hnArticles : HnArticle[];
   hnMostLikedArticle: HnArticle = new HnArticle('0','name','des','art','img',-11);
-  linkMostLikedArticle: LinkArticle = new LinkArticle('title','des','link',-11);
+  linkMostLikedArticle: LinkArticle = new LinkArticle('1', 'title','des','link',-11);
   hnid: number;
   linkid: number;
   subscriptionhn: Subscription;

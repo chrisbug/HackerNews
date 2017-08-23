@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HnArticle } from '../models/hnArticle.model';
 import { Subject } from 'rxjs/Subject';
+import { SendDataService } from './send-data.service';
+
 
 @Injectable()
 export class HnArticleService {
@@ -30,6 +32,9 @@ export class HnArticleService {
       2
     )
   ]
+
+  constructor(private sdService: SendDataService) { }
+
   sethnArticles(hnArticles: HnArticle[]){
     this.hnArticles = hnArticles;
     this.updateSubject();
@@ -45,11 +50,14 @@ export class HnArticleService {
 
   addHnArticle(hnArticle: HnArticle){
     this.hnArticles.push(hnArticle);
+    console.log('added article');
+    this.sdService.sendNewHnArticle(hnArticle)
     this.updateSubject()
   }
 
   updatehnArticles(index: number, newHnArticle: HnArticle){
     this.hnArticles[index] = newHnArticle;
+    this.sdService.updatehnArticle(newHnArticle);
     this.updateSubject();
   }
 
@@ -65,6 +73,7 @@ export class HnArticleService {
   addLike(index:number){
     this.hnArticles[index].likes  += 1;
     this.updateSubject();
+    this.sdService.updatehnArticle(this.hnArticles[index]);
   }
 
   addDisLike(index:number){
@@ -75,6 +84,5 @@ export class HnArticleService {
         }
       this.updateSubject();
   }
-  constructor() { }
 
 }

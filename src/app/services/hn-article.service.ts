@@ -49,10 +49,17 @@ export class HnArticleService {
   }
 
   addHnArticle(hnArticle: HnArticle){
-    this.hnArticles.push(hnArticle);
-    console.log('added article');
-    this.sdService.sendNewHnArticle(hnArticle)
-    this.updateSubject()
+    var result;
+    var newHnArticle = this.sdService.CreateNewHnArticle(hnArticle);
+    result = this.sdService.saveHnArticle(newHnArticle);
+    result.subscribe( x => {
+      this.hnArticles.push(hnArticle);
+      //Put in Redirec
+    });
+    // this.hnArticles.push(hnArticle);
+    // console.log('added article');
+    // this.sdService.sendNewHnArticle(hnArticle)
+    // this.updateSubject()
   }
 
   updatehnArticles(index: number, newHnArticle: HnArticle){

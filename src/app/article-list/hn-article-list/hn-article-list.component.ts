@@ -25,7 +25,7 @@ export class HnArticleListComponent implements OnInit, OnDestroy {
         this.hnArticles = hnArticles;
       }
     );
-    this.hnArticles = this.hnArticleService.gethnArticles();
+    //this.hnArticles = this.hnArticleService.gethnArticles();
   }
 
   ngOnDestroy(){

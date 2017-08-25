@@ -3,6 +3,7 @@ import { HnArticle } from '../../../models/hnArticle.model';
 import { HnArticleService } from '../../../services/hn-article.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-hn-article',
@@ -13,7 +14,7 @@ export class NewHnArticleComponent implements OnInit {
   @ViewChild('f') hnArticleForm: NgForm;
   subscription: Subscription;
 
-  constructor(private hnaService: HnArticleService) { }
+  constructor(private hnaService: HnArticleService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -23,6 +24,7 @@ export class NewHnArticleComponent implements OnInit {
     const newHnArticle = new HnArticle('280', value.title, value.description, value.article, value.imageLink, 0);
     console.log(newHnArticle);
     this.hnaService.addHnArticle(newHnArticle);
+    this.router.navigate(['/article-list/hackernews-article-list']);
   }
 
 }

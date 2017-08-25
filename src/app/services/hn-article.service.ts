@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HnArticle } from '../models/hnArticle.model';
 import { Subject } from 'rxjs/Subject';
 import { SendDataService } from './send-data.service';
-
+import { Router } from '@angular/router';
 
 @Injectable()
 export class HnArticleService {
@@ -33,7 +33,7 @@ export class HnArticleService {
     )
   ]
 
-  constructor(private sdService: SendDataService) { }
+  constructor(private sdService: SendDataService, private router: Router) { }
 
   sethnArticles(hnArticles: HnArticle[]){
     this.hnArticles = hnArticles;
@@ -59,7 +59,7 @@ export class HnArticleService {
     // this.hnArticles.push(hnArticle);
     // console.log('added article');
     // this.sdService.sendNewHnArticle(hnArticle)
-    // this.updateSubject()
+    this.updateSubject()
   }
 
   updatehnArticles(index: number, newHnArticle: HnArticle){
@@ -68,13 +68,8 @@ export class HnArticleService {
     this.sdService.updatehnArticle(updatedHnArticle, newHnArticle._id).subscribe( x => {
       console.log('sent update');
     });
+    this.updateSubject();
   }
-
-  // updatehnArticles(index: number, newHnArticle: HnArticle){
-  //   this.hnArticles[index] = newHnArticle;
-  //   this.sdService.updatehnArticle(newHnArticle);
-  //   this.updateSubject();
-  // }
 
   deleteHnArticle(index: number){
     this.sdService.deleteHnArticle(this.hnArticles[index]._id).subscribe(data => {
@@ -89,14 +84,16 @@ export class HnArticleService {
 
   addLike(index:number){
     this.hnArticles[index].likes  += 1;
-    this.updateSubject();
     this.updatehnArticles(index, this.hnArticles[index]);
+    this.updateSubject();
   }
 
   addDisLike(index:number){
       this.hnArticles[index].likes  += -1;
       let i = 0;
         if(this.hnArticles[index].likes < -10 ){
+          console.log('deleteing the article');
+          this.router.navigate(['/article-list/hackernews-article-list']);
           this.deleteHnArticle(index);
         } else {
           this.updatehnArticles(index, this.hnArticles[index]);

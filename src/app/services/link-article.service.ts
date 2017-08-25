@@ -79,7 +79,7 @@ export class LinkArticleService {
    addDisLike(index:number){
        this.linkArticles[index].likes  += -1;
        let i = 0;
-         if(this.linkArticles[index].likes < -10 ){
+         if(this.linkArticles[index].likes === -10 ){
            this.deleteLinkArticle(index);
          }else {
            this.updateLinkArticles(index, this.linkArticles[index]);

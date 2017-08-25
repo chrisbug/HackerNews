@@ -39,6 +39,10 @@ export class SendDataService {
      .map(res => res.json());
    }
 
+   deleteHnArticle(id){
+    return this.http.delete('http://localhost:3000/api/v1/hnarticle/remove/'+id).map(res => res.json());
+   }
+
    updatehnArticle(hnArticle, articleid: string){
      var headers = new Headers();
      headers.append('Content-Type', 'application/json');
@@ -59,6 +63,10 @@ export class SendDataService {
      headers.append('Content-Type', 'application/json');
      return this.http.put('http://localhost:3000/api/v1/linkarticle/'+ articleid, JSON.stringify(linkArticle), {headers: headers}).map(
        res => res.json());
+   }
+
+   deleteLinkArticle(id){
+    return this.http.delete('http://localhost:3000/api/v1/linkarticle/remove/'+id).map(res => res.json());
    }
 
 

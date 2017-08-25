@@ -77,7 +77,9 @@ export class HnArticleService {
   // }
 
   deleteHnArticle(index: number){
-    this.hnArticles.splice(index, 1);
+    this.sdService.deleteHnArticle(this.hnArticles[index]._id).subscribe(data => {
+      this.hnArticles.splice(index, 1);
+    });
     this.updateSubject();
   }
 

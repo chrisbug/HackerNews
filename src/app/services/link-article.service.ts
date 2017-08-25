@@ -60,7 +60,9 @@ export class LinkArticleService {
    }
 
    deleteLinkArticle(index: number){
-     this.linkArticles.splice(index, 1);
+     this.sdService.deleteLinkArticle(this.linkArticles[index]._id).subscribe(data => {
+       this.linkArticles.splice(index, 1);
+     });
      this.updateSubject();
    }
 

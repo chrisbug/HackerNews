@@ -21,14 +21,6 @@ export class SendDataService {
      return newHnArticle;
    }
 
-   sendNewHnArticle(hnArticle: HnArticle){
-     var result;
-     var newhnArticle = this.CreateNewHnArticle(hnArticle);
-     var headers = new Headers();
-     headers.append('Content-Type', 'application/json');
-     this.http.post('http://localhost:3000/api/v1/hnarticle/save', JSON.stringify(newhnArticle), {headers: headers});
-   }
-
    saveHnArticle(hnArticle){
      var headers = new Headers();
      headers.append('Content-Type', 'application/json');

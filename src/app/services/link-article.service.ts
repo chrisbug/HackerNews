@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { LinkArticle } from '../models/linkArticle.model';
 import { Subject } from 'rxjs/Subject';
 import { SendDataService } from './send-data.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class LinkArticleService {
@@ -25,7 +26,7 @@ export class LinkArticleService {
      )
    ]
 
-     constructor(private sdService: SendDataService) { }
+     constructor(private sdService: SendDataService, private router: Router) { }
 
    setLinkArticles(linkArticles: LinkArticle[]){
      this.linkArticles = linkArticles;
@@ -46,8 +47,9 @@ export class LinkArticleService {
      result = this.sdService.saveLinkArticle(newLinkArticle);
      result.subscribe( x => {
        this.linkArticles.push(linkArticle);
+       this.updateSubject();
+       this.router.navigate(['/article-list/link-article-list'])
      });
-     this.updateSubject()
    }
 
    updateLinkArticles(index: number, newLinkArticle: LinkArticle){
@@ -55,15 +57,15 @@ export class LinkArticleService {
      //this.linkArticles[index] = newLinkArticle;
      this.sdService.updateLinkArticle(updatedLinkArticle, newLinkArticle._id).subscribe( x => {
        console.log('sent update');
-     })
-     this.updateSubject();
+       this.updateSubject();
+     });
    }
 
    deleteLinkArticle(index: number){
      this.sdService.deleteLinkArticle(this.linkArticles[index]._id).subscribe(data => {
        this.linkArticles.splice(index, 1);
+       this.updateSubject();
      });
-     this.updateSubject();
    }
 
    updateSubject(){

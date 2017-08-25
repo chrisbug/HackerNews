@@ -54,12 +54,12 @@ export class HnArticleService {
     result = this.sdService.saveHnArticle(newHnArticle);
     result.subscribe( x => {
       this.hnArticles.push(hnArticle);
-      //Put in Redirec
+      this.updateSubject();
+      this.router.navigate(['/article-list/hackernews-article-list']);
     });
     // this.hnArticles.push(hnArticle);
     // console.log('added article');
     // this.sdService.sendNewHnArticle(hnArticle)
-    this.updateSubject()
   }
 
   updatehnArticles(index: number, newHnArticle: HnArticle){
@@ -67,15 +67,17 @@ export class HnArticleService {
     console.log(newHnArticle._id);
     this.sdService.updatehnArticle(updatedHnArticle, newHnArticle._id).subscribe( x => {
       console.log('sent update');
+      this.updateSubject();
     });
-    this.updateSubject();
   }
 
   deleteHnArticle(index: number){
     this.sdService.deleteHnArticle(this.hnArticles[index]._id).subscribe(data => {
       this.hnArticles.splice(index, 1);
+      this.sethnArticles(this.hnArticles);
+      this.updateSubject();
+      this.router.navigate(['/article-list/hackernews-article-list'])
     });
-    this.updateSubject();
   }
 
   updateSubject(){
@@ -91,9 +93,8 @@ export class HnArticleService {
   addDisLike(index:number){
       this.hnArticles[index].likes  += -1;
       let i = 0;
-        if(this.hnArticles[index].likes < -10 ){
+        if(this.hnArticles[index].likes <= -10 ){
           console.log('deleteing the article');
-          this.router.navigate(['/article-list/hackernews-article-list']);
           this.deleteHnArticle(index);
         } else {
           this.updatehnArticles(index, this.hnArticles[index]);

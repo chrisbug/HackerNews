@@ -24,7 +24,6 @@ export class NewHnArticleComponent implements OnInit {
     const newHnArticle = new HnArticle('280', value.title, value.description, value.article, value.imageLink, 0);
     console.log(newHnArticle);
     this.hnaService.addHnArticle(newHnArticle);
-    this.router.navigate(['/article-list/hackernews-article-list']);
   }
 
 }

@@ -19,7 +19,8 @@ export class HnArticleListComponent implements OnInit, OnDestroy {
               private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.onGetData();
+    console.log('nginit')
+    this.dataTestService.getHnArticles();
     this.subscription = this.hnArticleService.hnArticlesChanged.subscribe(
       (hnArticles: HnArticle[]) => {
         this.hnArticles = hnArticles;
@@ -30,10 +31,6 @@ export class HnArticleListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.subscription.unsubscribe(); //Stops possible memory links from the observable
-  }
-
-  onGetData(){
-    this.dataTestService.getHnArticles();
   }
 
   onAddArticle(){

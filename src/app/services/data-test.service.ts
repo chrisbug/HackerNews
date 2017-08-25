@@ -22,6 +22,7 @@ constructor(private http: Http, private hnArticleService: HnArticleService, priv
     ).subscribe(
       (articles: HnArticle[]) => {
         this.hnArticleService.sethnArticles(articles);
+        console.log(articles);
       }
     );
   }

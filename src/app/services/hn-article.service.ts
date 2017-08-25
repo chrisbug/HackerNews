@@ -63,10 +63,18 @@ export class HnArticleService {
   }
 
   updatehnArticles(index: number, newHnArticle: HnArticle){
-    this.hnArticles[index] = newHnArticle;
-    this.sdService.updatehnArticle(newHnArticle);
-    this.updateSubject();
+    var updatedHnArticle = this.sdService.CreateNewHnArticle(newHnArticle);
+    console.log(newHnArticle._id);
+    this.sdService.updatehnArticle(updatedHnArticle, newHnArticle._id).subscribe( x => {
+      console.log('sent update');
+    });
   }
+
+  // updatehnArticles(index: number, newHnArticle: HnArticle){
+  //   this.hnArticles[index] = newHnArticle;
+  //   this.sdService.updatehnArticle(newHnArticle);
+  //   this.updateSubject();
+  // }
 
   deleteHnArticle(index: number){
     this.hnArticles.splice(index, 1);
@@ -80,7 +88,7 @@ export class HnArticleService {
   addLike(index:number){
     this.hnArticles[index].likes  += 1;
     this.updateSubject();
-    this.sdService.updatehnArticle(this.hnArticles[index]);
+    this.updatehnArticles(index, this.hnArticles[index]);
   }
 
   addDisLike(index:number){
@@ -88,8 +96,11 @@ export class HnArticleService {
       let i = 0;
         if(this.hnArticles[index].likes < -10 ){
           this.deleteHnArticle(index);
+        } else {
+          this.updatehnArticles(index, this.hnArticles[index]);
         }
       this.updateSubject();
+
   }
 
 }

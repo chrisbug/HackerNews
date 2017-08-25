@@ -35,9 +35,11 @@ export class SendDataService {
      };
    }
 
-   updatehnArticle(hnArticle: HnArticle){
-     this.http.put('http://localhost:3000/api/v1/hnarticle/' + hnArticle._id, JSON.stringify(hnArticle));
-     console.log(JSON.stringify(hnArticle));
+   updatehnArticle(hnArticle, articleid: string){
+     var headers = new Headers();
+     headers.append('Content-Type', 'application/json');
+     return this.http.put('http://localhost:3000/api/v1/hnarticle/'+ articleid, JSON.stringify(hnArticle), {headers: headers}).map(
+       res => res.json());
    }
 
    sendNewLinkArticle(linkArticle: LinkArticle){

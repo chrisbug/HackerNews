@@ -21,18 +21,22 @@ export class SendDataService {
      return newHnArticle;
    }
 
+   CreateNewLinkArticle(linkArticle: LinkArticle){
+     var newLinkArticle = {
+       title: linkArticle.title,
+       description: linkArticle.description,
+       link: linkArticle.link,
+       likes: linkArticle.likes
+     }
+     return newLinkArticle;
+   }
+
    saveHnArticle(hnArticle){
      var headers = new Headers();
      headers.append('Content-Type', 'application/json');
      console.log(JSON.stringify(hnArticle));
      return this.http.post('http://localhost:3000/api/v1/hnarticle/save', JSON.stringify(hnArticle), {headers: headers})
      .map(res => res.json());
-   }
-
-   updatehnArticles(hnArticles: HnArticle[]){
-     for(let hnArticle of hnArticles){
-       this.http.put('http://localhost:3000/api/v1/hnarticle/' + hnArticle._id, hnArticle);
-     };
    }
 
    updatehnArticle(hnArticle, articleid: string){
@@ -42,14 +46,19 @@ export class SendDataService {
        res => res.json());
    }
 
-   sendNewLinkArticle(linkArticle: LinkArticle){
-    this.http.post('http://localhost:3000/api/v1/linkarticle/', linkArticle);
+   saveLinkArticle(linkArticle){
+     var headers = new Headers();
+     headers.append('Content-Type', 'application/json');
+     console.log(JSON.stringify(linkArticle));
+     return this.http.post('http://localhost:3000/api/v1/linkarticle/save', JSON.stringify(linkArticle), {headers: headers})
+     .map(res => res.json());
    }
 
-   updateLinkArticles(linkArticles: LinkArticle[]){
-     for(let linkArticle of linkArticles){
-       this.http.put('http://localhost:3000/api/v1/linkarticle/' + linkArticle._id, linkArticle);
-     };
+   updateLinkArticle(linkArticle, articleid: string){
+     var headers = new Headers();
+     headers.append('Content-Type', 'application/json');
+     return this.http.put('http://localhost:3000/api/v1/linkarticle/'+ articleid, JSON.stringify(linkArticle), {headers: headers}).map(
+       res => res.json());
    }
 
 

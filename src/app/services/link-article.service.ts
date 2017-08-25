@@ -1,6 +1,9 @@
+import { Injectable } from '@angular/core'
 import { LinkArticle } from '../models/linkArticle.model';
 import { Subject } from 'rxjs/Subject';
+import { SendDataService } from './send-data.service';
 
+@Injectable()
 export class LinkArticleService {
   linkArticlesChanged = new Subject<LinkArticle[]>();
    private linkArticles: LinkArticle[] = [
@@ -22,6 +25,8 @@ export class LinkArticleService {
      )
    ]
 
+     constructor(private sdService: SendDataService) { }
+
    setLinkArticles(linkArticles: LinkArticle[]){
      this.linkArticles = linkArticles;
      this.updateSubject();
@@ -36,12 +41,21 @@ export class LinkArticleService {
    }
 
    addLinkArticle(linkArticle: LinkArticle){
-     this.linkArticles.push(linkArticle);
+     var result;
+     var newLinkArticle = this.sdService.CreateNewLinkArticle(linkArticle);
+     result = this.sdService.saveLinkArticle(newLinkArticle);
+     result.subscribe( x => {
+       this.linkArticles.push(linkArticle);
+     });
      this.updateSubject()
    }
 
    updateLinkArticles(index: number, newLinkArticle: LinkArticle){
-     this.linkArticles[index] = newLinkArticle;
+     var updatedLinkArticle = this.sdService.CreateNewLinkArticle(newLinkArticle) //Creates the js object for db
+     //this.linkArticles[index] = newLinkArticle;
+     this.sdService.updateLinkArticle(updatedLinkArticle, newLinkArticle._id).subscribe( x => {
+       console.log('sent update');
+     })
      this.updateSubject();
    }
 
@@ -57,6 +71,7 @@ export class LinkArticleService {
    addLike(index:number){
      this.linkArticles[index].likes  += 1;
      this.updateSubject();
+     this.updateLinkArticles(index, this.linkArticles[index]);
    }
 
    addDisLike(index:number){
@@ -64,6 +79,8 @@ export class LinkArticleService {
        let i = 0;
          if(this.linkArticles[index].likes < -10 ){
            this.deleteLinkArticle(index);
+         }else {
+           this.updateLinkArticles(index, this.linkArticles[index]);
          }
        this.updateSubject();
    }
